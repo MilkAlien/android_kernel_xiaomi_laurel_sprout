@@ -1,4 +1,5 @@
 /* Copyright (c) 2015-2019 The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1223,7 +1224,6 @@ struct sde_mdss_cfg {
 	bool has_line_insertion;
 	bool has_qos_fl_nocalc;
 	bool has_decimation;
-	bool has_base_layer;
 
 	bool sui_misr_supported;
 	u32 sui_block_xin_mask;
