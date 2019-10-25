@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2014-2019, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1058,6 +1059,7 @@ static int qusb_phy_probe(struct platform_device *pdev)
 						"qcom,tune2-efuse-num-bits",
 						&qphy->tune2_efuse_num_of_bits);
 			}
+			#if 0
 			of_property_read_u32(dev->of_node,
 						"qcom,tune2-efuse-correction",
 						&qphy->tune2_efuse_correction);
@@ -1066,6 +1068,9 @@ static int qusb_phy_probe(struct platform_device *pdev)
 				dev_err(dev, "DT Value for tune2 efuse is invalid.\n");
 				return -EINVAL;
 			}
+			#else
+			qphy->tune2_efuse_correction = -6;
+			#endif
 		}
 	}
 
