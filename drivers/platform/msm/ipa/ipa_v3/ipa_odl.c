@@ -1,4 +1,5 @@
-/* Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -425,8 +426,7 @@ static int ipa_adpl_open(struct inode *inode, struct file *filp)
 	int ret = 0;
 
 	IPADBG("Called the function :\n");
-	if (ipa3_odl_ctx->odl_state.odl_init &&
-				!ipa3_odl_ctx->odl_state.adpl_open) {
+	if (ipa3_odl_ctx->odl_state.odl_init) {
 		/* Activate ipa_pm*/
 		ret = ipa_pm_activate_sync(ipa3_odl_ctx->odl_pm_hdl);
 		if (ret)
@@ -493,8 +493,6 @@ void ipa3_odl_pipe_cleanup(bool is_ssr)
 	/*Assume DIAG will not close this node in SSR case*/
 	if (is_ssr)
 		ipa3_odl_ctx->odl_state.adpl_open = true;
-	else
-		ipa3_odl_ctx->odl_state.adpl_open = false;
 
 	ipa3_odl_ctx->odl_state.odl_disconnected = true;
 	ipa3_odl_ctx->odl_state.odl_ep_setup = false;
