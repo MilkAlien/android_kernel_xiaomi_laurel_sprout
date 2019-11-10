@@ -908,10 +908,7 @@ static int fg_gen4_get_prop_real_capacity(struct fg_dev *fg, int *val)
 {
 	return fg_get_msoc(fg, val);
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 1bf45d16a1a1... drivers: power: Import Xiaomi changes
 static int fg_gen4_get_prop_capacity_raw(struct fg_gen4_chip *chip, int *val)
 {
 	struct fg_dev *fg = &chip->fg;
