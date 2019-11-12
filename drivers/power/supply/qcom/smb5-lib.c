@@ -1530,6 +1530,7 @@ void batt_temp_charging_current(struct smb_charger *chg, int bat_temp)
 		}
 		chg->last_bat_current = bat_current;
 	}
+}
 
 /****************************
  * uUSB Moisture Protection *
