@@ -7015,10 +7015,8 @@ static void period_update(struct work_struct *work)
 	usb_p = val.intval;
 	printk_counter++;
 
-	#ifndef CONFIG_DISABLE_TEMP_PROTECT
 	if (usb_p)
 		batt_temp_charging_current(chip,temp);
-	#endif
 
 	/*if heatbeat_ms is bigger than 500ms,must output the logs directly.*/
 	if ((period_ms>=500)|| (old_cap != cap) || (old_status != status)

@@ -453,10 +453,7 @@ static int smb5_parse_dt(struct smb5 *chip)
 				"qcom,fv-max-uv", &chip->dt.batt_profile_fv_uv);
 	if (rc < 0)
 		chip->dt.batt_profile_fv_uv = -EINVAL;
-	#ifdef CONFIG_DISABLE_TEMP_PROTECT
-		chip->dt.batt_profile_fcc_ua = 1500000;
-		chip->dt.batt_profile_fv_uv = 4100000;
-	#endif
+
 	rc = of_property_read_u32(node,
 				"qcom,usb-icl-ua", &chip->dt.usb_icl_ua);
 	if (rc < 0)
@@ -1596,9 +1593,6 @@ static int smb5_batt_get_prop(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_HEALTH:
 		rc = smblib_get_prop_batt_health(chg, val);
-	#ifdef CONFIG_DISABLE_TEMP_PROTECT
-		val->intval = POWER_SUPPLY_HEALTH_GOOD;
-    #endif
 		break;
 	case POWER_SUPPLY_PROP_PRESENT:
 		rc = smblib_get_prop_batt_present(chg, val);
@@ -1611,12 +1605,6 @@ static int smb5_batt_get_prop(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_CAPACITY:
 		rc = smblib_get_prop_batt_capacity(chg, val);
-	#ifdef CONFIG_DISABLE_TEMP_PROTECT
-		if (val->intval < 4) {
-
-			val->intval = 3;
-		}
-	#endif
 		break;
 	case POWER_SUPPLY_PROP_CHARGE_CONTROL_LIMIT:
 		rc = smblib_get_prop_system_temp_level(chg, val);
@@ -2976,12 +2964,6 @@ static int smb5_init_hw(struct smb5 *chip)
 		dev_err(chg->dev, "Couldn't set hw jeita rc=%d\n", rc);
 		return rc;
 	}
-	#ifdef CONFIG_DISABLE_TEMP_PROTECT
-	rc = smblib_masked_write(chg, JEITA_EN_CFG_REG, 0xFF,0);
-	if (rc < 0) {
-			dev_err(chg->dev, "DISABLE_TEMP_PROTECT s/w jeita error rc=%d\n", rc);
-	}
-	#endif
 
 	rc = smblib_masked_write(chg, DCDC_ENG_SDCDC_CFG5_REG,
 			ENG_SDCDC_BAT_HPWR_MASK, BOOST_MODE_THRESH_3P6_V);
