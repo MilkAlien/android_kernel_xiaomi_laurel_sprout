@@ -692,7 +692,7 @@ static int goodix_fb_state_chg_callback(struct notifier_block *nb,
 	unsigned int blank;
 	char temp[4] = { 0x0 };
 
-	if (val != MSM_DRM_EVENT_BLANK) {
+	if (val != MSM_DRM_EVENT_BLANK)
 		return 0;
 	pr_debug
 	    ("[info] %s go to the goodix_fb_state_chg_callback value = %d\n",
