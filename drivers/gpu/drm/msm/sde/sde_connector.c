@@ -38,6 +38,8 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
 	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
 };
 
+#define PANEL_BRIGHTNESS_MAX_LEVEL 1023
+
 static const struct drm_prop_enum_list e_topology_name[] = {
 	{SDE_RM_TOPOLOGY_NONE,	"sde_none"},
 	{SDE_RM_TOPOLOGY_SINGLEPIPE,	"sde_singlepipe"},
@@ -85,8 +87,8 @@ static int sde_backlight_device_update_status(struct backlight_device *bd)
 
 	c_conn = bl_get_data(bd);
 	display = (struct dsi_display *) c_conn->display;
-	if (brightness > display->panel->bl_config.bl_max_level)
-		brightness = display->panel->bl_config.bl_max_level;
+	if (brightness > PANEL_BRIGHTNESS_MAX_LEVEL)
+		brightness = PANEL_BRIGHTNESS_MAX_LEVEL;
 
 	/* map UI brightness into driver backlight level with rounding */
 	bl_lvl = mult_frac(brightness, display->panel->bl_config.bl_max_level,
